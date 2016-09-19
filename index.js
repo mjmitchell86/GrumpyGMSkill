@@ -50,7 +50,8 @@ exports.handler = function(event, context, callback) {
 
 var handlers = {
     'LaunchRequest': function () {
-        this.emit('GetTaunt');
+        var reprompt = "What can I help you with?";
+        this.emit(':ask', speechOutput, reprompt);
     },
     'GetNewTauntIntent': function () {
     	VictimName = this.event.request.intent.slots.victim.value;
