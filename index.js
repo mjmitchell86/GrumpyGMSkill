@@ -79,7 +79,7 @@ var handlers = {
         var diceRoll = 1 + Math.floor(Math.random() * sides);
         var speechOutput = "Your dice roll is " + diceRoll;
 
-        this.emit(':tellWithCard', "Dice Roll", SKILL_NAME, speechOutput);
+        this.emit(':tellWithCard', speechOutput, SKILL_NAME, speechOutput);
        },
     'CoinFlipIntent': function () {      
         var coin = "";
@@ -91,7 +91,7 @@ var handlers = {
         }        
         var speechOutput = "The coin has landed on " + coin;
 
-        this.emit(':tellWithCard', "Coin Flip", SKILL_NAME, speechOutput);
+        this.emit(':tellWithCard', speechOutput, SKILL_NAME, speechOutput);
        },
     'AMAZON.HelpIntent': function () {
         var speechOutput = "You can say please taunt insert name here.";
