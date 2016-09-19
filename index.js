@@ -5,6 +5,7 @@ var aws = require('aws-sdk');
 var APP_ID = "amzn1.ask.skill.4dd1982c-e83f-42e4-a082-4ebdb76618b7"; //OPTIONAL: replace with "amzn1.echo-sdk-ams.app.[your-unique-value-here]";
 var SKILL_NAME = 'Grumpy GM';
 
+//Will be moving this into DynamoDB in the future
 var Taunts = [
     "You’re tearing me apart, {name}.",
     "You know nothing, {name}.",
@@ -71,14 +72,26 @@ var handlers = {
     },
     'RollDiceIntent': function () {
         var sides = this.event.request.intent.slots.sides.value;
-        if (sides === null){
+        if (!sides){
             sides = 6
         }
 
         var diceRoll = 1 + Math.floor(Math.random() * sides);
         var speechOutput = "Your dice roll is " + diceRoll;
-        
-        this.emit(':tellWithCard', diceRoll, SKILL_NAME, speechOutput);
+
+        this.emit(':tellWithCard', "Dice Roll", SKILL_NAME, speechOutput);
+       },
+    'CoinFlipIntent': function () {      
+        var coin = "";
+        var coinFlipNum = 1 + Math.floor(Math.random() * 2);
+        if(coinFlipNum === 1){
+            coin = "heads"
+        } else {
+            coin = "tails"
+        }        
+        var speechOutput = "The coin has landed on " + coin;
+
+        this.emit(':tellWithCard', "Coin Flip", SKILL_NAME, speechOutput);
        },
     'AMAZON.HelpIntent': function () {
         var speechOutput = "You can say please taunt insert name here.";
