@@ -70,8 +70,15 @@ var handlers = {
         this.emit(':tellWithCard', speechOutput, SKILL_NAME, xuTaunt);
     },
     'RollDiceIntent': function () {
-        var diceRoll = 1 + Math.floor(Math.random() * 6);
-        this.emit(':tellWithCard', diceRoll, SKILL_NAME, diceRoll);
+        var sides = this.event.request.intent.slots.sides.value;
+        if (sides === null){
+            sides = 6
+        }
+
+        var diceRoll = 1 + Math.floor(Math.random() * sides);
+        var speechOutput = "Your dice roll is " + diceRoll;
+        
+        this.emit(':tellWithCard', diceRoll, SKILL_NAME, speechOutput);
        },
     'AMAZON.HelpIntent': function () {
         var speechOutput = "You can say please taunt insert name here.";
